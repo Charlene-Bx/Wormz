@@ -1,0 +1,102 @@
+// IMPORT
+@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Shadows+Into+Light&display=swap");
+
+// VARIABLES
+$colors: (
+  primary: #a4cc2d,
+  secondary: #7b9922,
+  tiercary: #434d28,
+  black: #201b01,
+  white: #f1f5bf,
+  font: #3b3103,
+  background: #bbd56f,
+  gameground: #6e5a00,
+  apple: #e6241c,
+  worm: #678a00,
+);
+
+// FUNCTIONS
+@function colors($name) {
+  @return map-get($colors, $name);
+}
+
+// RULES
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 6rem 24rem;
+  color: colors("font");
+  background-color: colors("background");
+  font-family: "Shadows Into Light", cursive;
+}
+
+.header {
+  margin-bottom: 3rem;
+  text-align: center;
+  font-family: "Gloria Hallelujah", cursive;
+  line-height: 0.3;
+
+  &__title {
+    color: colors("tiercary");
+    font-size: 12rem;
+
+    #red {
+      color: colors("apple");
+    }
+
+    #green {
+      color: colors("worm");
+    }
+  }
+
+  &__sub-title {
+    font-size: 3rem;
+    color: colors("secondary");
+  }
+}
+
+.main {
+  position: relative;
+
+  &__warper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__button {
+    position: absolute;
+    position: absolute;
+    padding: 3rem 4rem;
+    background-color: colors("primary");
+    color: colors("font");
+    border: 3px solid colors("secondary");
+    border-radius: 10px;
+    font-size: 3rem;
+    font-family: "Shadows Into Light", cursive;
+    transition: background-color 0.6 ease-in, font-size 0.6 ease-in;
+
+    &:hover {
+      background-color: darken(colors("primary"), 3%);
+      font-size: 3.3rem;
+      border-color: darken(colors("secondary"), 3%);
+    }
+
+    &:active {
+      color: colors("apple");
+    }
+
+    &--hide {
+      visibility: hidden;
+    }
+  }
+}
+
+#game-zone {
+  background-color: colors("gameground");
+}
