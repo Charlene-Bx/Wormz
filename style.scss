@@ -15,6 +15,8 @@ $colors: (
   worm: #678a00,
 );
 
+$spacing: 3rem;
+
 // FUNCTIONS
 @function colors($name) {
   @return map-get($colors, $name);
@@ -27,14 +29,14 @@ html {
 }
 
 body {
-  padding: 6rem 24rem;
+  padding: $spacing * 2 $spacing * 8;
   color: colors("font");
   background-color: colors("background");
   font-family: "Shadows Into Light", cursive;
 }
 
 .header {
-  margin-bottom: 3rem;
+  margin-bottom: $spacing;
   text-align: center;
   font-family: "Gloria Hallelujah", cursive;
   line-height: 0.3;
@@ -53,8 +55,9 @@ body {
   }
 
   &__sub-title {
-    font-size: 3rem;
+    font-size: $spacing;
     color: colors("secondary");
+    line-height: 1.5;
   }
 }
 
@@ -72,19 +75,21 @@ body {
   &__button {
     position: absolute;
     position: absolute;
-    padding: 3rem 4rem;
-    background-color: colors("primary");
-    color: colors("font");
-    border: 3px solid colors("secondary");
+    padding: $spacing $spacing * 2;
+    background-color: colors("secondary");
+    color: colors("tiercary");
+    border: none;
     border-radius: 10px;
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-family: "Shadows Into Light", cursive;
-    transition: background-color 0.6 ease-in, font-size 0.6 ease-in;
+    font-weight: bolder;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.35);
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.35);
+    transition: font-size 0.3s ease-out, color 0.3s ease-out;
 
     &:hover {
-      background-color: darken(colors("primary"), 3%);
-      font-size: 3.3rem;
-      border-color: darken(colors("secondary"), 3%);
+      font-size: 4.5rem;
+      color: colors("primary");
     }
 
     &:active {
@@ -93,6 +98,42 @@ body {
 
     &--hide {
       visibility: hidden;
+    }
+  }
+}
+
+.social {
+  &__list {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    color: colors("tiercary");
+    list-style: none;
+    font-size: 3rem;
+  }
+
+  &__item {
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: colors("secondary");
+    border-radius: 0 0 10px 10px;
+    transition: height 0.3s ease-out, color 0.3s ease-out;
+
+    & + & {
+      margin-left: $spacing;
+    }
+
+    &:hover {
+      height: 7rem;
+      color: colors("primary");
+    }
+
+    &:active {
+      color: colors("apple");
     }
   }
 }

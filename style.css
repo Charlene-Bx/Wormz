@@ -30,6 +30,7 @@ body {
 .header__sub-title {
   font-size: 3rem;
   color: #7b9922;
+  line-height: 1.5;
 }
 
 .main {
@@ -45,25 +46,57 @@ body {
 .main__button {
   position: absolute;
   position: absolute;
-  padding: 3rem 4rem;
-  background-color: #a4cc2d;
-  color: #3b3103;
-  border: 3px solid #7b9922;
+  padding: 3rem 6rem;
+  background-color: #7b9922;
+  color: #434d28;
+  border: none;
   border-radius: 10px;
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-family: "Shadows Into Light", cursive;
-  transition: background-color 0.6 ease-in, font-size 0.6 ease-in;
+  font-weight: bolder;
+  -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.35);
+  box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.35);
+  transition: font-size 0.3s ease-out, color 0.3s ease-out;
 }
 .main__button:hover {
-  background-color: #9abf2a;
-  font-size: 3.3rem;
-  border-color: #718c1f;
+  font-size: 4.5rem;
+  color: #a4cc2d;
 }
 .main__button:active {
   color: #e6241c;
 }
 .main__button--hide {
   visibility: hidden;
+}
+
+.social__list {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  color: #434d28;
+  list-style: none;
+  font-size: 3rem;
+}
+.social__item {
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #7b9922;
+  border-radius: 0 0 10px 10px;
+  transition: height 0.3s ease-out, color 0.3s ease-out;
+}
+.social__item + .social__item {
+  margin-left: 3rem;
+}
+.social__item:hover {
+  height: 7rem;
+  color: #a4cc2d;
+}
+.social__item:active {
+  color: #e6241c;
 }
 
 #game-zone {
