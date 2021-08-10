@@ -24,14 +24,24 @@
 
     <main class="main">
       <div class="main__warper">
-        <div class="main__score"></div>
+        <div class="main__score">
+          <h2 class="debug">
+            <span id="head"></span></hr> <span id="body"></span></hr></h2>
+        </div>
         <button class="main__button" id="starter-buton" onclick="play()">
           PLAY!
         </button>
-        <canvas id="game-zone" width="600" height="600">
-          Oh no, your browser does not support this feature. Maybe you should
-          download a newer one?
-        </canvas>
+        <label for="input-grid" class="input-grid__warper">
+          <span>grid</span>
+        </label>
+        <div>
+          <input type="checkbox" id="input-grid" class="input-grid__input"/>
+          <svg id="game-grid" width="600" height="600"></svg>
+          <canvas id="game-zone" width="600" height="600">
+            Oh no, your browser does not support this feature. Maybe you should
+            download a newer one?
+          </canvas>
+        </div>
       </div>
       <div class="social">
         <ul class="social__list">

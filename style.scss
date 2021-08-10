@@ -1,5 +1,12 @@
 // IMPORT
 @import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Shadows+Into+Light&display=swap");
+//FOR DEVELOPPEMENT ONLY
+.debug {
+  font-family: arial;
+  font-size: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
 
 // VARIABLES
 $colors: (
@@ -74,7 +81,7 @@ body {
 
   &__button {
     position: absolute;
-    position: absolute;
+    z-index: 100;
     padding: $spacing $spacing * 2;
     background-color: colors("secondary");
     color: colors("tiercary");
@@ -86,6 +93,7 @@ body {
     -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.35);
     box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.35);
     transition: font-size 0.3s ease-out, color 0.3s ease-out;
+    cursor: pointer;
 
     &:hover {
       font-size: 4.5rem;
@@ -138,6 +146,26 @@ body {
   }
 }
 
+.input-grid {
+  &__input {
+    display: none;
+    &:checked + #game-grid {
+      display: initial;
+    }
+  }
+
+  &__warper {
+    width: 3rem;
+    height: 3rem;
+    background-color: wheat;
+  }
+}
+
 #game-zone {
   background-color: colors("gameground");
+}
+
+#game-grid {
+  display: none;
+  position: absolute;
 }

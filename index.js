@@ -1,20 +1,41 @@
 const buton = document.querySelector("#starter-buton")
+const grid = document.querySelector("#game-grid")
 const canvas = document.querySelector("#game-zone")
 const context = canvas.getContext("2d")
+
+//FOR DEVELOPPEMENT ONLY
+const outputHead = document.querySelector("#head")
+const outputBody = document.querySelector("#body")
 
 // DEFINE THE STARTING PARAMETERS
 const params = {
   start: false,
   speed: 500,
-  grid: 20,
+  grid_step: 20,
+  grid_thickness: 2,
+}
+
+const createGrid = (canva, width, height, step, thickness) => {
+  for (x = 0; x <= width; x += step) {
+    canva.insertAdjacentHTML(
+      "afterbegin",
+      `<line x1="${x}" y1="0" x2="${x}"  y2="${height}" stroke="#645200" stroke-width="${thickness}"/>`
+    )
+  }
+  for (y = 0; y <= height; y += step) {
+    canva.insertAdjacentHTML(
+      "afterbegin",
+      `<line x1="0" y1="${y}" x2="${width}"  y2="${y}" stroke="#645200" stroke-width="${thickness}"/>`
+    )
+  }
 }
 
 // DEFINE THE WORM AS AN OBJECT
 const worm = {
   //datas:
   head: {
-    width: params.grid,
-    height: params.grid,
+    width: params.grid_step,
+    height: params.grid_step,
   },
 
   body: [],
@@ -40,19 +61,21 @@ const worm = {
       context.fillRect(
         index.x,
         index.y,
-        this.head.width - 2,
-        this.head.height - 2
+        this.head.width - params.grid_thickness,
+        this.head.height - params.grid_thickness
       )
     }
   },
 
   move: function () {
+    const { x, y } = this.position
     this.position.x += this.deplacement.x * this.head.width
     this.position.y += this.deplacement.y * this.head.height
 
     const coordinates = {
       x: this.position.x,
       y: this.position.y,
+      absolute: { x, y },
     }
 
     this.body.push(coordinates)
@@ -69,11 +92,15 @@ const worm = {
 
 // DEFINE THE APPLE AS AN OBJECT
 const apple = {
-  ray: params.grid / 2,
+  ray: params.grid_step / 2,
 
   position: {
-    x: Math.floor(Math.random() * (canvas.width / params.grid)) * params.grid,
-    y: Math.floor(Math.random() * (canvas.height / params.grid)) * params.grid,
+    x:
+      Math.floor(Math.random() * (canvas.width / params.grid_step)) *
+      params.grid_step,
+    y:
+      Math.floor(Math.random() * (canvas.height / params.grid_step)) *
+      params.grid_step,
   },
 
   // ADD FUNCTIONS TO THIS OBJECT
@@ -93,9 +120,11 @@ const apple = {
 
   initialise: function () {
     this.position.x =
-      Math.floor(Math.random() * (canvas.width / params.grid)) * params.grid
+      Math.floor(Math.random() * (canvas.width / params.grid_step)) *
+      params.grid_step
     this.position.y =
-      Math.floor(Math.random() * (canvas.height / params.grid)) * params.grid
+      Math.floor(Math.random() * (canvas.height / params.grid_step)) *
+      params.grid_step
   },
 }
 
@@ -114,24 +143,24 @@ const rules = {
 
   if_touch_border: () => {
     if (
-      worm.position.x + worm.head.width === canvas.width &&
+      worm.position.x + worm.head.width >= canvas.width &&
       worm.deplacement.x === 1
     ) {
       return (worm.position.x = 0 - worm.head.width)
     }
 
     if (
-      worm.position.y + worm.head.height === canvas.height &&
+      worm.position.y + worm.head.height >= canvas.height &&
       worm.deplacement.y === 1
     ) {
       return (worm.position.y = 0 - worm.head.height)
     }
 
-    if (worm.position.x === 0 && worm.deplacement.x === -1) {
+    if (worm.position.x <= 0 && worm.deplacement.x === -1) {
       return (worm.position.x = canvas.width)
     }
 
-    if (worm.position.y === 0 && worm.deplacement.y === -1) {
+    if (worm.position.y <= 0 && worm.deplacement.y === -1) {
       return (worm.position.y = canvas.height)
     }
   },
@@ -141,17 +170,30 @@ const rules = {
 
 //CREATE THE FUNCTION FOR RUN THE GAME
 function play() {
+  //FOR DEVELOPPEMENT ONLY
+  if (worm.body.length === worm.length) {
+    const body = worm.body.slice(1).map((queue) => {
+      return `x: ${queue.x}; y: ${queue.y}`
+    })
+    outputHead.innerHTML = `x: ${worm.body[0].x}; y: ${worm.body[0].y}`
+    outputBody.innerHTML = body
+  }
+
   //HIDE THE STARTER BUTTON
   buton.classList.add("main__button--hide")
+
   //MAKE THE WORM
   worm.display()
   worm.move()
+
   //DISPLAY APPLE
   apple.display()
+
   //ADD RULES TO THE GAME
   rules.if_eat_apple()
   rules.if_touch_border()
   rules.if_touch_himself()
+
   //ANIME ALL THIS SHIT
   setTimeout(play, params.speed)
 }
@@ -216,3 +258,11 @@ function control(keyboard) {
 }
 
 window.addEventListener("keydown", control)
+
+createGrid(
+  grid,
+  canvas.width,
+  canvas.height,
+  params.grid_step,
+  params.grid_thickness
+)
